@@ -107,8 +107,8 @@ export const Step2Details: React.FC = () => {
                 <input
                   type="number"
                   min="1"
-                  value={plannerDetails.estimatedGuestCount}
-                  onChange={e => updatePlanner({ estimatedGuestCount: parseInt(e.target.value) || 0 })}
+                  value={plannerDetails.estimatedGuestCount === 0 ? '' : plannerDetails.estimatedGuestCount}
+                  onChange={e => updatePlanner({ estimatedGuestCount: e.target.value === '' ? 0 : parseInt(e.target.value, 10) || 0 })}
                   className={`w-full px-4 py-2.5 rounded-xl border text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition ${
                     errors.estimatedGuestCount ? 'border-rose-300 bg-rose-50/20' : 'border-slate-200 focus:border-indigo-500'
                   }`}
@@ -130,10 +130,10 @@ export const Step2Details: React.FC = () => {
                       type="number"
                       min="0"
                       placeholder="Min ($)"
-                      value={plannerDetails.budget.min}
+                      value={plannerDetails.budget.min === 0 ? '' : plannerDetails.budget.min}
                       onChange={e =>
                         updatePlanner({
-                          budget: { ...plannerDetails.budget, min: parseInt(e.target.value) || 0 }
+                          budget: { ...plannerDetails.budget, min: e.target.value === '' ? 0 : parseInt(e.target.value, 10) || 0 }
                         })
                       }
                       className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:border-indigo-500"
@@ -144,10 +144,10 @@ export const Step2Details: React.FC = () => {
                       type="number"
                       min="0"
                       placeholder="Max ($)"
-                      value={plannerDetails.budget.max}
+                      value={plannerDetails.budget.max === 0 ? '' : plannerDetails.budget.max}
                       onChange={e =>
                         updatePlanner({
-                          budget: { ...plannerDetails.budget, max: parseInt(e.target.value) || 0 }
+                          budget: { ...plannerDetails.budget, max: e.target.value === '' ? 0 : parseInt(e.target.value, 10) || 0 }
                         })
                       }
                       className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:border-indigo-500"
@@ -194,8 +194,8 @@ export const Step2Details: React.FC = () => {
                   type="number"
                   min="15"
                   step="15"
-                  value={performerDetails.durationMinutes}
-                  onChange={e => updatePerformer({ durationMinutes: parseInt(e.target.value) || 0 })}
+                  value={performerDetails.durationMinutes === 0 ? '' : performerDetails.durationMinutes}
+                  onChange={e => updatePerformer({ durationMinutes: e.target.value === '' ? 0 : parseInt(e.target.value, 10) || 0 })}
                   className={`w-full px-4 py-2.5 rounded-xl border text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition ${
                     errors.durationMinutes ? 'border-rose-300 bg-rose-50/20' : 'border-slate-200 focus:border-indigo-500'
                   }`}
@@ -261,8 +261,8 @@ export const Step2Details: React.FC = () => {
                       <input
                         type="number"
                         min="1"
-                        value={item.headcount}
-                        onChange={e => updateCrewRoleItem(idx, item.role, parseInt(e.target.value) || 1)}
+                        value={item.headcount === 0 ? '' : item.headcount}
+                        onChange={e => updateCrewRoleItem(idx, item.role, e.target.value === '' ? 0 : parseInt(e.target.value, 10) || 0)}
                         className="w-16 px-2.5 py-2 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:border-indigo-500 text-center"
                       />
                     </div>

@@ -8,9 +8,14 @@ export const createRequirement = async (req, res, next) => {
     const randomPart = Math.floor(1000 + Math.random() * 9000);
     const referenceId = `REQ-${timestampPart}-${randomPart}`;
 
+    const sanitizedBasics = {
+      ...basics,
+      endDate: basics.isDateRange && basics.endDate ? basics.endDate : undefined
+    };
+
     const docPayload = {
       referenceId,
-      basics,
+      basics: sanitizedBasics,
       category,
       plannerDetails: category === 'planner' ? plannerDetails : undefined,
       performerDetails: category === 'performer' ? performerDetails : undefined,

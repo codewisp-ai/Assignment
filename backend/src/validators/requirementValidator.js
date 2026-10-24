@@ -47,12 +47,15 @@ export const validateRequirement = (req, res, next) => {
       if (!planningScope || !validScopes.includes(planningScope)) {
         errors.push(`Planning scope must be one of: ${validScopes.join(', ')}.`);
       }
-      if (!estimatedGuestCount || estimatedGuestCount < 1) {
+      const guestCount = Number(estimatedGuestCount);
+      if (isNaN(guestCount) || guestCount < 1) {
         errors.push('Estimated guest count must be at least 1.');
       }
-      if (!budget || typeof budget.min !== 'number' || typeof budget.max !== 'number') {
+      const minBudget = Number(budget?.min);
+      const maxBudget = Number(budget?.max);
+      if (isNaN(minBudget) || isNaN(maxBudget) || minBudget < 0) {
         errors.push('Budget range with min and max numbers is required.');
-      } else if (budget.max < budget.min) {
+      } else if (maxBudget < minBudget) {
         errors.push('Maximum budget cannot be less than minimum budget.');
       }
       const validTimelines = ['immediate', '1_3_months', '3_6_months', 'flexible'];
@@ -71,7 +74,8 @@ export const validateRequirement = (req, res, next) => {
       if (!performerType || !validPerformerTypes.includes(performerType)) {
         errors.push(`Performer type must be one of: ${validPerformerTypes.join(', ')}.`);
       }
-      if (!durationMinutes || durationMinutes < 15) {
+      const duration = Number(durationMinutes);
+      if (isNaN(duration) || duration < 15) {
         errors.push('Duration must be at least 15 minutes.');
       }
       if (!genreOrStyle || typeof genreOrStyle !== 'string' || !genreOrStyle.trim()) {
@@ -92,7 +96,8 @@ export const validateRequirement = (req, res, next) => {
           if (!r.role || typeof r.role !== 'string' || !r.role.trim()) {
             errors.push(`Role title is required for role entry #${idx + 1}.`);
           }
-          if (!r.headcount || r.headcount < 1) {
+          const count = Number(r.headcount);
+          if (isNaN(count) || count < 1) {
             errors.push(`Headcount for "${r.role || idx + 1}" must be at least 1.`);
           }
         });

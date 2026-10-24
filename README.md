@@ -108,24 +108,3 @@ npm run dev
 3. **Array Validation**: Crew role requirements require at least one valid entry with positive headcount ($> 0$).
 4. **Numeric Bounds**: Validates that maximum budget is greater than or equal to minimum budget.
 5. **Connection Fault Tolerance**: Server continues running and gracefully handles transient database reconnections.
-
----
-
-## 🎥 5–7 Minute Walkthrough Script (Internship Video)
-
-* **Minute 0:00 – 1:00 (Overview & Architecture)**:
-  * Introduce project scope: Multi-step posting flow tailored for Planners, Performers, and Crew.
-  * Tech stack selection rationale: Next.js App Router for fluid client-side transitions and Express + MongoDB for polymorphic schema storage.
-* **Minute 1:00 – 2:30 (Step 1 & Dynamic Category Branching)**:
-  * Fill Step 1 with single day vs date range.
-  * Show category switching (Planner vs Performer vs Crew) and explain how Steps 2 and 3 dynamically reconfigure inputs and validation rules.
-* **Minute 2:30 – 4:00 (Step 2, Step 3, and Validation)**:
-  * Demonstrate form validation: attempting to proceed without required fields triggers inline error cues.
-  * Fill category specifics (e.g. crew roles with multiple headcounts, call times, rider notes).
-* **Minute 4:00 – 5:30 (Step 4 Review, API Call & MongoDB)**:
-  * Show the summary card with jump-to-edit capability.
-  * Click "Post Requirement": inspect DevTools network tab showing `POST /api/requirements` returning `201 Created` with generated `referenceId`.
-  * Show the Confirmation Screen and switch to `/requirements` feed showing the newly saved record in MongoDB.
-* **Minute 5:30 – 6:30 (Edge Cases & Technical Trade-offs)**:
-  * Discuss payload sanitization, date inversion protection, and session draft recovery.
-  * Mention future improvements: role-based authentication, file attachments for technical riders, and WebSockets for real-time applicant matching.

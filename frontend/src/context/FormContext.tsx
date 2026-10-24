@@ -130,6 +130,13 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children
       ...prev,
       plannerDetails: { ...prev.plannerDetails, ...fields }
     }));
+    Object.keys(fields).forEach(key => {
+      setErrors(prev => {
+        const copy = { ...prev };
+        delete copy[key];
+        return copy;
+      });
+    });
   };
 
   const updatePerformer = (fields: Partial<PerformerDetails>) => {
@@ -137,6 +144,13 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children
       ...prev,
       performerDetails: { ...prev.performerDetails, ...fields }
     }));
+    Object.keys(fields).forEach(key => {
+      setErrors(prev => {
+        const copy = { ...prev };
+        delete copy[key];
+        return copy;
+      });
+    });
   };
 
   const updateCrew = (fields: Partial<CrewDetails>) => {
@@ -144,6 +158,13 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children
       ...prev,
       crewDetails: { ...prev.crewDetails, ...fields }
     }));
+    Object.keys(fields).forEach(key => {
+      setErrors(prev => {
+        const copy = { ...prev };
+        delete copy[key];
+        return copy;
+      });
+    });
   };
 
   const validateCurrentStep = (): boolean => {
@@ -231,7 +252,10 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setSubmitError(null);
 
     const payload = {
-      basics: formData.basics,
+      basics: {
+        ...formData.basics,
+        endDate: formData.basics.isDateRange && formData.basics.endDate ? formData.basics.endDate : undefined
+      },
       category: formData.category,
       plannerDetails: formData.category === 'planner' ? formData.plannerDetails : undefined,
       performerDetails: formData.category === 'performer' ? formData.performerDetails : undefined,
@@ -257,7 +281,10 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children
       sessionStorage.removeItem(STORAGE_KEY);
       return true;
     } catch (err: any) {
-      setSubmitError(err.message || 'An unexpected network error occurred');
+      const msg = err.message === 'Failed to fetch'
+        ? 'Unable to connect to backend server. Please verify the backend is running on http://localhost:5000'
+        : err.message || 'An unexpected network error occurred';
+      setSubmitError(msg);
       return false;
     } finally {
       setIsSubmitting(false);

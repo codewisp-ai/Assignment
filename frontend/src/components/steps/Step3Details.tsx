@@ -182,8 +182,8 @@ export const Step3Details: React.FC = () => {
                 <input
                   type="number"
                   min="0"
-                  value={performerDetails.micCount}
-                  onChange={e => updatePerformer({ micCount: parseInt(e.target.value) || 0 })}
+                  value={performerDetails.micCount === 0 ? '' : performerDetails.micCount}
+                  onChange={e => updatePerformer({ micCount: e.target.value === '' ? 0 : parseInt(e.target.value, 10) || 0 })}
                   className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:border-indigo-500"
                 />
               </div>

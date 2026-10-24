@@ -9,10 +9,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 app.get('/api/health', (req, res) => {
@@ -36,7 +33,7 @@ const startServer = async () => {
     console.warn('[MongoDB] Starting server without DB connection. Will retry on request.');
   }
 
-  app.listen(port, () => {
+  app.listen(port, '0.0.0.0', () => {
     console.log(`[Server] Running on http://localhost:${port}`);
   });
 };
